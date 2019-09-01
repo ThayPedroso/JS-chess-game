@@ -36,29 +36,23 @@ const tabuleiro = new Map([
 ])
 
 function imprimirTabuleiro(tabuleiro) {
-    let linha1 = []
-    let linha2 = []
-    let linha3 = []
-    let linha4 = []
 
     for (let posicao of tabuleiro) {
-        if (posicao[0][1] == 1) linha1.push(posicao[1].nome || " ")
-        if (posicao[0][1] == 2) linha2.push(posicao[1].nome || " ")
-        if (posicao[0][1] == 3) linha3.push(posicao[1].nome || " ")
-        if (posicao[0][1] == 4) linha4.push(posicao[1].nome || " ")
+        document.getElementById(posicao[0]).innerHTML = posicao[1].nome || "-"
     }
-    console.log(linha1);
-    console.log(linha2);
-    console.log(linha3);
-    console.log(linha4);
 }
 
-console.log('Antes da movimentação --------');
-imprimirTabuleiro(tabuleiro)
-moverPeca(tabuleiro, 'b1', 'd1')
-console.log('Depois da movimentação --------');
 imprimirTabuleiro(tabuleiro)
 
+function movePieces() {
+
+    let origin = document.getElementsByClassName("From")[0].value
+    let destiny = document.getElementsByClassName("To")[0].value
+
+    moverPeca(tabuleiro, origin, destiny)
+    imprimirTabuleiro(tabuleiro)
+
+}
 
 function moverPeca(tabuleiro, origem, destino) {
     let pecaTransf = {}
