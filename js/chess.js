@@ -1,4 +1,4 @@
-function criarPeca(nome, posicaoTabuleiro, cor) {
+function createPiece(nome, posicaoTabuleiro, cor) {
     return {
         nome,
         posicaoTabuleiro, // chave Map a1, a2
@@ -11,10 +11,10 @@ function criarPeca(nome, posicaoTabuleiro, cor) {
     }
 }
 
-const pecaT1Branca = criarPeca('T', 'a1', 'branca')
-const pecaT2Branca = criarPeca('T', 'b1', 'branca')
-const pecaRBranca = criarPeca('R', 'a2', 'branca')
-const pecaDBranca = criarPeca('D', 'b2', 'branca')
+const pecaT1Branca = createPiece('T', 'a1', 'branca')
+const pecaT2Branca = createPiece('T', 'b1', 'branca')
+const pecaRBranca = createPiece('R', 'a2', 'branca')
+const pecaDBranca = createPiece('D', 'b2', 'branca')
 
 const tabuleiro = new Map([
     ['a1', pecaT1Branca ],
@@ -49,8 +49,13 @@ function movePieces() {
     let origin = document.getElementsByClassName("From")[0].value
     let destiny = document.getElementsByClassName("To")[0].value
 
-    moverPeca(tabuleiro, origin, destiny)
-    imprimirTabuleiro(tabuleiro)
+
+    if (validarPosicao(tabuleiro, origin) && validarPosicao(tabuleiro, destiny)) {
+        if (pieceExistence(tabuleiro, origin) && !pieceExistence(tabuleiro, destiny)) {
+            moverPeca(tabuleiro, origin, destiny)
+            imprimirTabuleiro(tabuleiro)
+        }
+    }
 
 }
 
@@ -61,6 +66,12 @@ function moverPeca(tabuleiro, origem, destino) {
     tabuleiro.set(origem, {})
 }
 
+function pieceExistence(tabuleiro, position) {
+    result = tabuleiro.get(position).nome != undefined ? true : false 
+    return result
+}
+
+
 function posicaoValida(tabuleiro, posicao) {
     const resultado = tabuleiro.has(posicao) ? true : false
     return resultado
@@ -68,11 +79,14 @@ function posicaoValida(tabuleiro, posicao) {
 
 function validarPosicao(tabuleiro, posicao) {
     if (!posicaoValida(tabuleiro, posicao)) {
-        console.log('Posição inválida!')
+        document.getElementById("messages").innerHTML = '<p>Posição inválida!</p>'
         return false
     }
+    document.getElementById("messages").innerHTML = ''
     return true
 }
 
 validarPosicao(tabuleiro, 'a1')
 // validarPosicao(tabuleiro, 'a8')
+//  console.log(pieceExistence(tabuleiro, 'a1'));
+//  console.log(pieceExistence(tabuleiro, 'a5'));
