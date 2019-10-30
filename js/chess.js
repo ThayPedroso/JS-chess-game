@@ -11,25 +11,26 @@ function createPiece(nome, posicaoTabuleiro, cor) {
     }
 }
 
-const pecaT1Branca = createPiece('T', 'a1', 'branca')
-const pecaT2Branca = createPiece('T', 'b1', 'branca')
-const pecaRBranca = createPiece('R', 'a2', 'branca')
-const pecaDBranca = createPiece('D', 'b2', 'branca')
+const pecaT1Azul = createPiece('T', 'a1', 'azul')
+const pecaT2Azul = createPiece('T', 'b1', 'azul')
+const pecaRAzul = createPiece('R', 'a2', 'azul')
+const pecaDAzul = createPiece('D', 'b2', 'azul')
+const pecaT1Vermelha = createPiece('T', 'b1', 'vermelha')
 
 const tabuleiro = new Map([
-    ['a1', pecaT1Branca ],
-    ['b1', pecaT2Branca ],
+    ['a1', pecaT1Azul ],
+    ['b1', pecaT2Azul ],
     ['c1', {}],
     ['d1', {}],
-    ['a2', pecaRBranca ],
-    ['b2', pecaDBranca ],
+    ['a2', pecaRAzul ],
+    ['b2', pecaDAzul ],
     ['c2', {}],
     ['d2', {}],
     ['a3', {}],
     ['b3', {}],
     ['c3', {}],
     ['d3', {}],
-    ['a4', {}],
+    ['a4', pecaT1Vermelha],
     ['b4', {}],
     ['c4', {}],
     ['d4', {}],
@@ -39,6 +40,18 @@ function imprimirTabuleiro(tabuleiro) {
 
     for (let posicao of tabuleiro) {
         document.getElementById(posicao[0]).innerHTML = posicao[1].nome || "-"
+        console.log(posicao[1]);
+        if ( posicao[1].cor === 'azul'){
+            document.getElementById(posicao[0]).style.background = 'lightblue'
+        }
+        else if (posicao[1].cor === 'vermelha'){
+            document.getElementById(posicao[0]).style.background = 'LIGHTCORAL'
+        }
+        else
+        {
+            document.getElementById(posicao[0]).style.background = 'lightgray'
+        }
+        
     }
 }
 
